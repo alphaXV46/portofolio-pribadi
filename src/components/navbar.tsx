@@ -2,19 +2,21 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
-import { Menu, X, FileDown, Code2 } from "lucide-react"
+import { Menu, X, ArrowUpRight } from "lucide-react"
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Projects", href: "/projects" },
-  { name: "Skills", href: "/#skills" },
-  { name: "Contact", href: "/#contact" },
+  { name: "INDEX", href: "/" },
+  { name: "WORKS", href: "/projects" },
+  { name: "EXPERTISE", href: "/#skills" },
+  { name: "CONTACT", href: "/#contact" },
 ]
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,48 +34,50 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20 py-3"
-          : "bg-transparent py-5"
+          ? "bg-[#f9f9f9]/90 backdrop-blur-md border-b border-[#e2e2e2] py-4"
+          : "bg-transparent py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 group text-lg font-bold tracking-tight text-slate-100"
+          className="flex items-center gap-3 group text-[#1a1c1c]"
         >
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-500 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
-            <div className="h-full w-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <Code2 className="h-5 w-5 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
-            </div>
-          </div>
-          <span>
-            Dev<span className="text-cyan-400 font-extrabold">.Portfolio</span>
+          <span className="font-serif text-xl tracking-wider font-normal">
+            ETHEREAL <span className="font-sans text-xs tracking-[0.2em] font-semibold text-[#707070]">// GALLERY</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 rounded-full px-4 py-1.5 glass-panel">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-cyan-400 hover:bg-white/5 rounded-full transition-all duration-200"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <nav className="hidden md:flex items-center gap-10">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`label-caps text-xs py-1 transition-colors relative ${
+                  isActive
+                    ? "text-[#1a1c1c] border-b-2 border-[#1a1c1c]"
+                    : "text-[#707070] hover:text-[#1a1c1c]"
+                }`}
+              >
+                {link.name}
+              </Link>
+            )
+          })}
         </nav>
 
-        {/* Desktop Action Buttons */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Desktop Action Button */}
+        <div className="hidden md:flex items-center gap-4">
           <a
             href="/cv.pdf"
             download
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl text-slate-200 glass-card hover:text-white hover:border-cyan-500/40 transition-all duration-300"
+            className="btn-ethereal flex items-center gap-2"
           >
-            <FileDown className="h-4 w-4 text-cyan-400" />
-            <span>Download CV</span>
+            <span>DOWNLOAD CV</span>
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
 
@@ -81,10 +85,10 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl text-slate-300 glass-card hover:text-white focus:outline-none"
+          className="md:hidden p-2 text-[#1a1c1c] border border-[#e2e2e2] bg-white rounded-none"
           aria-label="Toggle Navigation Menu"
         >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
@@ -92,32 +96,32 @@ export function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden absolute top-full left-0 right-0 p-4 bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
+            className="md:hidden absolute top-full left-0 right-0 bg-[#ffffff] border-b border-[#e2e2e2] p-6 shadow-sm"
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2.5 text-base font-medium text-slate-200 hover:text-cyan-400 hover:bg-white/5 rounded-lg transition-colors"
+                  className="label-caps text-sm text-[#1a1c1c] py-2 border-b border-[#f3f3f3]"
                 >
                   {link.name}
                 </Link>
               ))}
-              <div className="pt-2 border-t border-white/10">
+              <div className="pt-2">
                 <a
                   href="/cv.pdf"
                   download
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full px-4 py-2.5 text-sm font-medium rounded-xl text-slate-100 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-lg shadow-cyan-500/25 transition-all duration-300"
+                  className="btn-ethereal-filled w-full flex items-center justify-center gap-2"
                 >
-                  <FileDown className="h-4 w-4" />
-                  <span>Download CV</span>
+                  <span>DOWNLOAD CV</span>
+                  <ArrowUpRight className="h-4 w-4" />
                 </a>
               </div>
             </div>

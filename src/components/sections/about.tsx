@@ -4,59 +4,54 @@ import { motion } from "motion/react"
 import { Code, Cpu, Globe, Rocket } from "lucide-react"
 
 const stats = [
-  { label: "Years Experience", value: "6+", icon: Code },
-  { label: "Projects Shipped", value: "30+", icon: Rocket },
-  { label: "Client Satisfaction", value: "100%", icon: Globe },
-  { label: "Architecture Audits", value: "45+", icon: Cpu },
+  { label: "FEATURED PROJECTS", value: "06", icon: Code },
+  { label: "CORE TECH STACKS", value: "04", icon: Rocket },
+  { label: "AI RAG INTEGRATION", value: "100%", icon: Globe },
+  { label: "CROSS-PLATFORM DEPLOYED", value: "YES", icon: Cpu },
 ]
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-32 md:py-40 border-b border-[#e2e2e2] bg-[#f9f9f9]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mb-16"
         >
-          <h2 className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-3">
-            // ABOUT ME
+          <span className="label-caps text-[#707070] block mb-2">// PHILOSOPHY & ARCHITECTURE</span>
+          <h2 className="headline-md text-[#1a1c1c]">
+            Fullstack Precision Across Web, Desktop, & AI
           </h2>
-          <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-            Engineered for <span className="text-gradient">Performance</span> and Scale
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Bio Description */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-7 flex flex-col gap-6"
           >
-            <div className="glass-panel p-8 rounded-2xl border border-white/10 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-5">
-                <Code className="h-40 w-40 text-cyan-400" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-100 mb-4">
-                Hi, I'm a Senior Fullstack Architect based in tech innovation hubs.
+            <div className="ethereal-panel p-8 md:p-12">
+              <h3 className="font-serif text-2xl text-[#1a1c1c] mb-6 leading-snug">
+                "Building software isn't just about writing code — it's about engineering resilient systems that solve real business bottlenecks."
               </h3>
-              <p className="text-slate-300 leading-relaxed mb-4">
-                I specialize in designing and engineering high-throughput backend services, interactive real-time web applications, and resilient cloud architectures. With a relentless focus on clean code and performance benchmarks, I build products that scale seamlessly.
+              <p className="body-md text-[#1a1c1c] mb-4">
+                I specialize in engineering fullstack web applications, C# .NET desktop tools, and AI-assisted workflows. My portfolio includes enterprise distribution systems built with Laravel 13 & Livewire, desktop barcode scanning platforms using embedded HTTP listeners & SQL triggers, and interactive Web Audio API engines.
               </p>
-              <p className="text-slate-400 leading-relaxed">
-                Whether orchestrating complex event-driven microservices in Go & Node.js or crafting slick, ultra-responsive web experiences in Next.js and TypeScript, I bridge business requirements with cutting-edge engineering.
+              <p className="body-md text-[#707070]">
+                By combining cutting-edge frameworks like Next.js 16 and React 19 with robust backend architectures and AI (Gemini RAG), I deliver solutions tailored for performance and operational reliability.
               </p>
             </div>
           </motion.div>
 
           {/* Stats Grid */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -67,16 +62,16 @@ export function AboutSection() {
               return (
                 <div
                   key={stat.label}
-                  className="glass-card p-6 rounded-2xl flex flex-col gap-3 group border border-white/10 hover:border-cyan-500/40"
+                  className="ethereal-card p-6 flex flex-col justify-between gap-6"
                 >
-                  <div className="h-10 w-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
-                    <Icon className="h-5 w-5" />
+                  <div className="text-[#1a1c1c]">
+                    <Icon className="h-5 w-5 text-[#a38a5e]" />
                   </div>
                   <div>
-                    <div className="text-3xl font-extrabold text-slate-100 group-hover:text-cyan-400 transition-colors">
+                    <div className="font-serif text-4xl text-[#1a1c1c] mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-xs font-medium text-slate-400 mt-1">
+                    <div className="label-caps text-[10px] text-[#707070]">
                       {stat.label}
                     </div>
                   </div>

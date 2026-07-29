@@ -16,11 +16,11 @@ export function MDXContent({ code }: MDXContentProps) {
   try {
     const Component = useMDXComponent(code)
     return (
-      <article className="prose prose-invert max-w-none prose-headings:text-slate-100 prose-headings:font-extrabold prose-p:text-slate-300 prose-p:leading-relaxed prose-li:text-slate-300 prose-code:text-cyan-300 prose-code:bg-slate-900/80 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-strong:text-cyan-400">
+      <article className="prose prose-neutral max-w-none prose-headings:font-serif prose-headings:font-normal prose-headings:text-[#1a1c1c] prose-p:text-[#1a1c1c] prose-p:leading-relaxed prose-li:text-[#1a1c1c] prose-code:text-[#1a1c1c] prose-code:bg-[#f3f3f3] prose-code:px-1.5 prose-code:py-0.5 prose-code:border prose-code:border-[#e2e2e2] prose-strong:text-[#1a1c1c] prose-strong:font-bold">
         <Component />
       </article>
     )
   } catch (err) {
-    return <div className="text-slate-400 text-sm">Failed to load MDX content.</div>
+    return <div className="caption text-[#707070]">Failed to load MDX content.</div>
   }
 }

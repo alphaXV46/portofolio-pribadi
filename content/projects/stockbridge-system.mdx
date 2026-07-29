@@ -1,0 +1,25 @@
+---
+title: "StockBridge System"
+description: "High-performance C# .NET WPF desktop inventory platform featuring WiFi Barcode/QR scanning via HTTP listener and automated SQL triggers."
+category: "Backend"
+thumbnail_url: "/images/projects/stockbridge.jpg"
+demo_url: "https://stockbridge.example.com"
+github_url: "https://github.com/example/stockbridge-system"
+is_featured: true
+display_order: 3
+tags: ["C# .NET", "WPF / XAML", "SQL Triggers", "HttpListener WiFi Scan", "SQLite"]
+---
+
+## Problem Statement
+
+Warehouse hardware environments require ultra-fast desktop stock scanning without expensive proprietary handheld terminals, utilizing standard mobile WiFi barcode scanners instead.
+
+## Technical Decisions & Solutions
+
+- **C# .NET & WPF/XAML**: Developed a responsive desktop application using MVVM pattern and native XAML styling for smooth rendering.
+- **Embedded HttpListener Server**: Built a lightweight HTTP server inside C# to receive wireless Barcode and QR code payload streams directly from mobile devices over local WiFi.
+- **SQL Triggers & SQLite**: Implemented database-level triggers for automated stock delta calculations, audit logging, and concurrency control.
+
+## Key Challenges & Results
+
+Achieved zero-latency wireless barcode parsing and crash-free local SQLite transaction handling under high scanner activity.

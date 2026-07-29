@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "motion/react"
-import { Send, CheckCircle2, AlertCircle, Mail } from "lucide-react"
+import { ArrowUpRight, CheckCircle2, AlertCircle, Mail } from "lucide-react"
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons"
 import { contactFormSchema, type ContactFormData } from "@/lib/validations/contact"
 
@@ -47,103 +47,104 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-32 md:py-40 bg-[#ffffff]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+          className="mb-16"
         >
-          <h2 className="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase mb-3">
-            // INITIATE CONTACT
+          <span className="label-caps text-[#707070] block mb-2">// INITIATE INQUIRY</span>
+          <h2 className="headline-md text-[#1a1c1c]">
+            Start a Conversation
           </h2>
-          <p className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-            Let's Build Something <span className="text-gradient">Extraordinary</span>
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto items-start">
-          {/* Social Links & Bio */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 max-w-5xl items-start">
+          {/* Info & Social Links */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5 flex flex-col gap-6"
+            className="lg:col-span-5 flex flex-col gap-8"
           >
-            <div className="glass-panel p-8 rounded-2xl border border-white/10">
-              <h3 className="text-xl font-bold text-slate-100 mb-4">Have a project in mind?</h3>
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                Whether you need technical leadership, architectural consultation, or a high-impact fullstack solution, my inbox is always open.
+            <div>
+              <h3 className="font-serif text-2xl text-[#1a1c1c] mb-4">
+                Have an ambitious project or architectural inquiry?
+              </h3>
+              <p className="body-md text-[#707070] mb-8">
+                Whether you are seeking software leadership, technical consultation, or a high-impact digital product, I am available for select engagements.
               </p>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3">
+                <span className="label-caps text-[10px] text-[#707070]">DIRECT INBOX:</span>
                 <a
                   href="mailto:contact@example.com"
-                  className="flex items-center gap-3 text-sm text-slate-300 hover:text-cyan-400 transition-colors p-3 rounded-xl glass-card"
+                  className="body-md font-medium text-[#1a1c1c] hover:text-[#a38a5e] transition-colors flex items-center gap-2"
                 >
-                  <Mail className="h-5 w-5 text-cyan-400" />
+                  <Mail className="h-4 w-4 text-[#a38a5e]" />
                   <span>contact@example.com</span>
                 </a>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-white/10 flex items-center gap-4">
+              <div className="pt-8 mt-8 border-t border-[#e2e2e2] flex items-center gap-6">
                 <a
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl glass-card text-slate-400 hover:text-white hover:border-cyan-500/40 transition-all"
-                  aria-label="GitHub"
+                  className="text-[#707070] hover:text-[#1a1c1c] transition-colors flex items-center gap-1 label-caps text-xs"
                 >
-                  <GithubIcon className="h-5 w-5" />
+                  <GithubIcon className="h-4 w-4" />
+                  <span>GITHUB</span>
                 </a>
                 <a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl glass-card text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-                  aria-label="LinkedIn"
+                  className="text-[#707070] hover:text-[#1a1c1c] transition-colors flex items-center gap-1 label-caps text-xs"
                 >
-                  <LinkedinIcon className="h-5 w-5" />
+                  <LinkedinIcon className="h-4 w-4" />
+                  <span>LINKEDIN</span>
                 </a>
                 <a
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl glass-card text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-                  aria-label="Twitter"
+                  className="text-[#707070] hover:text-[#1a1c1c] transition-colors flex items-center gap-1 label-caps text-xs"
                 >
-                  <TwitterIcon className="h-5 w-5" />
+                  <TwitterIcon className="h-4 w-4" />
+                  <span>TWITTER</span>
                 </a>
               </div>
             </div>
           </motion.div>
 
-          {/* Form */}
+          {/* Minimalist Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-7"
           >
-            <form onSubmit={handleSubmit(onSubmit)} className="glass-panel p-8 rounded-2xl border border-white/10 flex flex-col gap-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="ethereal-panel p-8 md:p-12 flex flex-col gap-6">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-xs font-mono font-medium text-slate-300 mb-2">
-                  FULL NAME
+                <label htmlFor="name" className="block label-caps text-xs text-[#1a1c1c] mb-2">
+                  FULL NAME *
                 </label>
                 <input
                   id="name"
                   type="text"
-                  placeholder="John Doe"
+                  placeholder="e.g. Eleanor Vance"
                   {...register("name")}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm"
+                  className="w-full ethereal-input"
                 />
                 {errors.name && (
-                  <p className="text-xs text-rose-400 mt-1.5 flex items-center gap-1">
+                  <p className="caption text-[#ba1a1a] mt-1.5 flex items-center gap-1">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.name.message}
                   </p>
@@ -152,18 +153,18 @@ export function ContactSection() {
 
               {/* Email */}
               <div>
-                <label htmlFor="email" className="block text-xs font-mono font-medium text-slate-300 mb-2">
-                  EMAIL ADDRESS
+                <label htmlFor="email" className="block label-caps text-xs text-[#1a1c1c] mb-2">
+                  EMAIL ADDRESS *
                 </label>
                 <input
                   id="email"
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder="eleanor@studio.com"
                   {...register("email")}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm"
+                  className="w-full ethereal-input"
                 />
                 {errors.email && (
-                  <p className="text-xs text-rose-400 mt-1.5 flex items-center gap-1">
+                  <p className="caption text-[#ba1a1a] mt-1.5 flex items-center gap-1">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.email.message}
                   </p>
@@ -172,35 +173,35 @@ export function ContactSection() {
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-xs font-mono font-medium text-slate-300 mb-2">
-                  YOUR MESSAGE
+                <label htmlFor="message" className="block label-caps text-xs text-[#1a1c1c] mb-2">
+                  PROJECT INQUIRY *
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  placeholder="Tell me about your project or inquiry..."
+                  placeholder="Describe your technical requirements or proposal..."
                   {...register("message")}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm resize-none"
+                  className="w-full ethereal-input resize-none"
                 />
                 {errors.message && (
-                  <p className="text-xs text-rose-400 mt-1.5 flex items-center gap-1">
+                  <p className="caption text-[#ba1a1a] mt-1.5 flex items-center gap-1">
                     <AlertCircle className="h-3.5 w-3.5" />
                     {errors.message.message}
                   </p>
                 )}
               </div>
 
-              {/* Submission Feedback Banners */}
+              {/* Banners */}
               {status === "success" && (
-                <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                  <span>Thank you! Your message has been received. I'll get back to you shortly.</span>
+                <div className="p-4 bg-[#f9f9f9] border border-[#a38a5e] text-[#1a1c1c] body-md text-sm flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-[#a38a5e]" />
+                  <span>Inquiry received. I will respond within 24 hours.</span>
                 </div>
               )}
 
               {status === "error" && (
-                <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5 text-rose-400" />
+                <div className="p-4 bg-[#ffdad6] border border-[#ba1a1a] text-[#93000a] body-md text-sm flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4 text-[#ba1a1a]" />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -209,14 +210,14 @@ export function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-xl shadow-cyan-500/20 disabled:opacity-50 transition-all duration-300 mt-2"
+                className="btn-ethereal-filled w-full flex items-center justify-center gap-2 mt-4"
               >
                 {isSubmitting ? (
-                  <span>Sending Message...</span>
+                  <span>SENDING INQUIRY...</span>
                 ) : (
                   <>
-                    <Send className="h-4 w-4" />
-                    <span>Send Message</span>
+                    <span>SUBMIT INQUIRY</span>
+                    <ArrowUpRight className="h-4 w-4" />
                   </>
                 )}
               </button>

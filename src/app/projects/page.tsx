@@ -3,58 +3,60 @@
 import { useState } from "react"
 import Link from "next/link"
 import { motion } from "motion/react"
-import { ExternalLink, FolderKanban, ArrowLeft } from "lucide-react"
+import { ExternalLink, FolderKanban, ArrowLeft, ArrowUpRight } from "lucide-react"
 import { GithubIcon } from "@/components/icons"
 import { Navbar } from "@/components/navbar"
 import { projects } from "#content"
 
-type CategoryFilter = "All" | "Fullstack" | "Backend" | "Mobile" | "Game"
+type CategoryFilter = "ALL" | "Fullstack" | "Backend" | "Mobile" | "Game"
 
-const categories: CategoryFilter[] = ["All", "Fullstack", "Backend", "Mobile", "Game"]
+const categories: CategoryFilter[] = ["ALL", "Fullstack", "Backend", "Mobile", "Game"]
 
 export default function ProjectsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("All")
+  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("ALL")
 
   const filteredProjects = projects.filter((p) => {
-    if (selectedCategory === "All") return true
+    if (selectedCategory === "ALL") return true
     return p.category === selectedCategory
   })
 
   return (
-    <main className="flex-1 flex flex-col min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+    <main className="flex-1 flex flex-col min-h-screen bg-[#f9f9f9] text-[#1a1c1c] selection:bg-[#1a1c1c] selection:text-[#ffffff]">
       <Navbar />
 
-      <section className="pt-32 pb-20 relative flex-1">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-36 pb-24 md:pt-48 md:pb-32 relative flex-1">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16">
           {/* Header */}
-          <div className="mb-12">
+          <div className="mb-16">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors mb-4"
+              className="inline-flex items-center gap-2 label-caps text-xs text-[#707070] hover:text-[#1a1c1c] transition-colors mb-6"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Back to Home</span>
+              <span>RETURN TO INDEX</span>
             </Link>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-100 mb-4">
-              All <span className="text-gradient">Case Studies</span> & Projects
+
+            <h1 className="display-lg text-[#1a1c1c] mb-6">
+              Selected Works & Case Studies
             </h1>
-            <p className="text-slate-400 text-lg max-w-2xl">
-              Explore technical case studies detailing architecture decisions, performance benchmarks, and real-world system implementations.
+
+            <p className="body-lg text-[#707070] max-w-2xl">
+              An architectural monograph detailing system decisions, engineering trade-offs, and technical benchmarks across software domains.
             </p>
           </div>
 
           {/* Category Filter Tabs */}
-          <div className="flex flex-wrap gap-2.5 mb-12">
+          <div className="flex flex-wrap gap-3 mb-16 border-b border-[#e2e2e2] pb-6">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat
               return (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 ${
+                  className={`px-5 py-2.5 label-caps text-xs transition-all duration-300 ${
                     isActive
-                      ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-lg shadow-cyan-500/10"
-                      : "glass-card text-slate-400 hover:text-slate-200 hover:border-white/20"
+                      ? "bg-[#1a1c1c] text-white border border-[#1a1c1c]"
+                      : "bg-white text-[#707070] border border-[#e2e2e2] hover:text-[#1a1c1c] hover:border-[#1a1c1c]"
                   }`}
                 >
                   {cat}
@@ -65,83 +67,82 @@ export default function ProjectsPage() {
 
           {/* Projects Grid */}
           {filteredProjects.length === 0 ? (
-            <div className="glass-panel p-12 rounded-2xl text-center text-slate-400 my-12">
-              No projects found in category "{selectedCategory}".
+            <div className="ethereal-panel p-16 text-center text-[#707070] label-caps my-12">
+              No works available in category "{selectedCategory}".
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {filteredProjects.map((project, idx) => (
                 <motion.div
                   key={project.slug}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  className="glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col group"
+                  className="ethereal-card group flex flex-col justify-between p-6"
                 >
-                  <div className="relative h-48 w-full bg-slate-900 overflow-hidden flex items-center justify-center border-b border-white/10">
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10" />
-                    <div className="h-14 w-14 rounded-2xl bg-slate-800/80 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:border-cyan-500/40 transition-all duration-300">
-                      <FolderKanban className="h-7 w-7" />
+                  <div>
+                    <div className="relative h-56 w-full bg-[#f3f3f3] border border-[#e2e2e2] flex items-center justify-center mb-6 overflow-hidden">
+                      <div className="h-14 w-14 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white transition-colors duration-300">
+                        <FolderKanban className="h-6 w-6" />
+                      </div>
+                      <span className="absolute top-4 left-4 label-caps text-[10px] bg-white border border-[#e2e2e2] px-3 py-1 text-[#1a1c1c]">
+                        {project.category}
+                      </span>
                     </div>
-                    <span className="absolute top-4 left-4 z-20 px-3 py-1 text-xs font-semibold rounded-full glass-pill border border-white/10 text-cyan-300">
-                      {project.category}
-                    </span>
+
+                    <h2 className="font-serif text-2xl text-[#1a1c1c] group-hover:text-[#a38a5e] transition-colors mb-3 leading-snug">
+                      <Link href={project.permalink}>{project.title}</Link>
+                    </h2>
+                    
+                    <p className="body-md text-[#707070] line-clamp-3 mb-6">
+                      {project.description}
+                    </p>
                   </div>
 
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h2 className="text-xl font-bold text-slate-100 group-hover:text-cyan-400 transition-colors mb-2">
-                        <Link href={project.permalink}>{project.title}</Link>
-                      </h2>
-                      <p className="text-sm text-slate-400 line-clamp-3 mb-6 leading-relaxed">
-                        {project.description}
-                      </p>
+                  <div>
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="label-caps text-[10px] px-2.5 py-1 bg-[#f9f9f9] border border-[#e2e2e2] text-[#1a1c1c]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
 
-                    <div>
-                      <div className="flex flex-wrap gap-1.5 mb-6">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-0.5 text-xs font-mono rounded-md bg-slate-900/80 text-slate-300 border border-white/5"
+                    <div className="flex items-center justify-between pt-4 border-t border-[#e2e2e2]">
+                      <Link
+                        href={project.permalink}
+                        className="label-caps text-xs text-[#1a1c1c] hover:text-[#a38a5e] transition-colors flex items-center gap-1"
+                      >
+                        <span>READ CASE STUDY</span>
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </Link>
+
+                      <div className="flex items-center gap-3">
+                        {project.github_url && (
+                          <a
+                            href={project.github_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#707070] hover:text-[#1a1c1c] transition-colors"
+                            aria-label="GitHub Repository"
                           >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                        <Link
-                          href={project.permalink}
-                          className="text-xs font-bold text-slate-300 hover:text-cyan-400 transition-colors flex items-center gap-1"
-                        >
-                          <span>Read Case Study</span>
-                        </Link>
-
-                        <div className="flex items-center gap-3">
-                          {project.github_url && (
-                            <a
-                              href={project.github_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-slate-400 hover:text-white transition-colors"
-                              aria-label="GitHub Repository"
-                            >
-                              <GithubIcon className="h-4 w-4" />
-                            </a>
-                          )}
-                          {project.demo_url && (
-                            <a
-                              href={project.demo_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-slate-400 hover:text-cyan-400 transition-colors"
-                              aria-label="Live Demo"
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          )}
-                        </div>
+                            <GithubIcon className="h-4 w-4" />
+                          </a>
+                        )}
+                        {project.demo_url && (
+                          <a
+                            href={project.demo_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#707070] hover:text-[#a38a5e] transition-colors"
+                            aria-label="Live Demo"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -152,11 +153,11 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <footer className="py-8 border-t border-white/10 text-center text-xs font-mono text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Senior Fullstack Engineer. Built with Next.js 15 & Velite.</p>
-          <Link href="/" className="hover:text-cyan-400 transition-colors">
-            Return to Homepage
+      <footer className="py-12 border-t border-[#e2e2e2] bg-[#f9f9f9] text-xs font-sans text-[#707070]">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="label-caps text-[10px]">© {new Date().getFullYear()} ETHEREAL GALLERY — ALL RIGHTS RESERVED.</p>
+          <Link href="/" className="label-caps text-[10px] text-[#707070] hover:text-[#1a1c1c]">
+            RETURN TO INDEX
           </Link>
         </div>
       </footer>
