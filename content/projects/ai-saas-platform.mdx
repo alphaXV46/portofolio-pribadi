@@ -1,0 +1,25 @@
+---
+title: "AI Automation Platform"
+description: "Enterprise SaaS platform for AI workflow orchestration and real-time agent monitoring."
+category: "Fullstack"
+thumbnail_url: "/images/projects/ai-saas.jpg"
+demo_url: "https://demo-ai-saas.example.com"
+github_url: "https://github.com/example/ai-saas"
+is_featured: true
+display_order: 1
+tags: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "OpenAI"]
+---
+
+## Problem Statement
+
+Modern enterprise teams struggle to integrate autonomous AI workflows into existing legacy infrastructure, suffering from excessive latency and unreliable task execution.
+
+## Technical Decisions & Solutions
+
+- **Next.js App Router & Server Actions**: Leveraged SSR for initial state loading and real-time Server Sent Events (SSE) streaming for AI responses.
+- **Glassmorphism UI**: Built an intuitive high-density dashboard with low-latency visual feedback using Framer Motion and custom CSS backdrops.
+- **Queue System**: Integrated Redis-backed BullMQ workers to process heavy sub-agent tasks concurrently.
+
+## Key Challenges & Results
+
+Achieved **sub-200ms API response time** across 100k daily active workflow steps with zero down-time.
