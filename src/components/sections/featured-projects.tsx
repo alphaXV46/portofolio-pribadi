@@ -1,25 +1,70 @@
 "use client"
 
+import { useRef } from "react"
 import Link from "next/link"
 import { motion } from "motion/react"
-import { ExternalLink, ArrowUpRight, FolderKanban } from "lucide-react"
+import { ExternalLink, ArrowUpRight, FolderKanban, ChevronLeft, ChevronRight } from "lucide-react"
 import { GithubIcon } from "@/components/icons"
 import { projects } from "#content"
 
 export function FeaturedProjectsSection() {
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const isMouseDown = useRef(false)
+  const startX = useRef(0)
+  const scrollLeftPos = useRef(0)
+
   const featured = projects
     .filter((p) => p.is_featured)
     .sort((a, b) => a.display_order - b.display_order)
 
+  const CARD_STRIDE = 452
+
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -CARD_STRIDE, behavior: "smooth" })
+    }
+  }
+
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: CARD_STRIDE, behavior: "smooth" })
+    }
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!carouselRef.current) return
+    isMouseDown.current = true
+    startX.current = e.pageX - carouselRef.current.offsetLeft
+    scrollLeftPos.current = carouselRef.current.scrollLeft
+  }
+
+  const handleMouseLeave = () => {
+    isMouseDown.current = false
+  }
+
+  const handleMouseUp = () => {
+    isMouseDown.current = false
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown.current || !carouselRef.current) return
+    e.preventDefault()
+    const x = e.pageX - carouselRef.current.offsetLeft
+    const walk = (x - startX.current) * 1.2
+    carouselRef.current.scrollLeft = scrollLeftPos.current - walk
+  }
+
   return (
-    <section id="featured-projects" className="py-32 md:py-40 border-b border-[#e2e2e2] bg-[#ffffff]">
+    <section id="featured-projects" className="py-24 md:py-32 border-b border-[#e2e2e2] bg-[#ffffff] overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 md:px-16">
+        
+        {/* Header with Title & Arrow Navigation Controls */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
         >
           <div>
             <span className="label-caps text-[#707070] block mb-2">// MONOGRAPH SELECTION</span>
@@ -28,35 +73,64 @@ export function FeaturedProjectsSection() {
             </h2>
           </div>
 
-          <Link
-            href="/projects"
-            className="btn-ethereal hover:scale-105 flex items-center gap-2 transition-transform duration-300"
-          >
-            <span>VIEW ALL WORKS ({projects.length})</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          {/* Action Group: Controls & View All */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={scrollLeft}
+                className="btn-ethereal px-3 py-2 flex items-center justify-center"
+                aria-label="Scroll Previous Works"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Previous</span>
+              </button>
+              <button
+                onClick={scrollRight}
+                className="btn-ethereal px-3 py-2 flex items-center justify-center"
+                aria-label="Scroll Next Works"
+              >
+                <ChevronRight className="h-4 w-4" />
+                <span className="sr-only">Next</span>
+              </button>
+            </div>
+
+            <Link
+              href="/projects"
+              className="btn-ethereal hidden sm:flex items-center gap-2"
+            >
+              <span>ALL WORKS ({projects.length})</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* 1-Row Monograph Horizontal Carousel */}
+        <div
+          ref={carouselRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className="flex overflow-x-auto gap-8 pb-6 snap-x snap-mandatory scrollbar-none scroll-smooth -mx-6 px-6 md:-mx-16 md:px-16 cursor-grab active:cursor-grabbing select-none"
+        >
           {featured.map((project, idx) => (
-            <motion.div
+            <motion.article
               key={project.slug}
-              initial={{ opacity: 0, y: 50, scale: 0.96 }}
+              initial={{ opacity: 0, y: 40, scale: 0.96 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.215, 0.61, 0.355, 1.0] }}
-              className="ethereal-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#1a1c1c] hover:shadow-2xl hover:shadow-black/10 bg-white"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1, ease: [0.215, 0.61, 0.355, 1.0] }}
+              className="ethereal-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-2 border border-[#1a1c1c] bg-white shrink-0 w-[340px] sm:w-[420px] snap-start"
             >
               {/* Thumbnail Header Frame */}
               <div>
-                <div className="relative h-60 w-full bg-[#f3f3f3] border border-[#e2e2e2] group-hover:border-[#1a1c1c] flex items-center justify-center mb-6 overflow-hidden transition-colors duration-300">
+                <div className="relative h-56 w-full bg-[#f3f3f3] border border-[#e2e2e2] group-hover:border-[#1a1c1c] flex items-center justify-center mb-6 overflow-hidden transition-colors duration-300">
                   <motion.div
                     initial={{ scale: 1.15 }}
                     whileInView={{ scale: 1.0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="h-16 w-16 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm"
+                    className="h-16 w-16 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white group-hover:scale-110 transition-all duration-300"
                   >
                     <FolderKanban className="h-7 w-7" />
                   </motion.div>
@@ -129,7 +203,7 @@ export function FeaturedProjectsSection() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

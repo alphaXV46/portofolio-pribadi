@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "motion/react"
-import { ArrowUpRight, CheckCircle2, AlertCircle, Mail } from "lucide-react"
+import { ArrowUpRight, CheckCircle2, AlertCircle, Mail, FileText } from "lucide-react"
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons"
 import { contactFormSchema, type ContactFormData } from "@/lib/validations/contact"
 
@@ -79,7 +79,7 @@ export function ContactSection() {
                 Whether you are seeking software leadership, technical consultation, or a high-impact digital product, I am available for select engagements.
               </p>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 mb-8">
                 <span className="label-caps text-[10px] text-[#707070]">DIRECT INBOX:</span>
                 <a
                   href="mailto:contact@example.com"
@@ -90,7 +90,20 @@ export function ContactSection() {
                 </a>
               </div>
 
-              <div className="pt-8 mt-8 border-t border-[#e2e2e2] flex items-center gap-6">
+              {/* Download CV Resource Button */}
+              <div className="mb-8">
+                <a
+                  href="/cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-ethereal w-full flex items-center justify-center gap-2"
+                >
+                  <FileText className="h-4 w-4" />
+                  <span>DOWNLOAD CURRICULUM VITAE (PDF)</span>
+                </a>
+              </div>
+
+              <div className="pt-8 border-t border-[#e2e2e2] flex items-center gap-6">
                 <a
                   href="https://github.com"
                   target="_blank"
@@ -200,7 +213,7 @@ export function ContactSection() {
               )}
 
               {status === "error" && (
-                <div className="p-4 bg-[#ffdad6] border border-[#ba1a1a] text-[#93000a] body-md text-sm flex items-center gap-2">
+                <div className="p-4 bg-[#ffffff] border border-[#ba1a1a] text-[#ba1a1a] body-md text-sm flex items-center gap-2">
                   <AlertCircle className="h-4 w-4 text-[#ba1a1a]" />
                   <span>{errorMessage}</span>
                 </div>

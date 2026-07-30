@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 
 const tickerItems = [
   "LARAVEL 13",
@@ -22,17 +22,28 @@ const tickerItems = [
 const fullTickerList = [...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems]
 
 export function Marquee() {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
-    <div className="w-full overflow-hidden border-y border-[#e2e2e2] bg-white py-5 selection:bg-[#1a1c1c] selection:text-white">
+    <section
+      aria-label="Core Technology Ticker"
+      className="w-full overflow-hidden border-y border-[#e2e2e2] bg-white py-5 selection:bg-[#1a1c1c] selection:text-white"
+    >
       <motion.div
-        className="flex whitespace-nowrap gap-12 w-max"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-          duration: 35,
-        }}
+        className="flex whitespace-nowrap gap-12 w-max will-change-transform"
+        style={{ willChange: "transform" }}
+        animate={shouldReduceMotion ? { x: "0%" } : { x: ["0%", "-50%"] }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "linear",
+                duration: 35,
+              }
+        }
+        whileHover={{ animationPlayState: "paused" }}
       >
         {fullTickerList.map((item, index) => (
           <div key={index} className="flex items-center gap-12">
@@ -43,6 +54,6 @@ export function Marquee() {
           </div>
         ))}
       </motion.div>
-    </div>
+    </section>
   )
 }

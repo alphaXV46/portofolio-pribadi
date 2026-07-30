@@ -1,37 +1,67 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, useScroll, useTransform } from "motion/react"
-import { ArrowUpRight, FolderKanban, Sparkles } from "lucide-react"
+import { ArrowUpRight, Sparkles } from "lucide-react"
 
 export function StickySpotlight() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isDesktop, setIsDesktop] = useState(false)
 
-  // Hook scroll progress relative to this 200vh section
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768)
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  // Hook scroll progress relative to this section during sticky pinning
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end end"],
   })
 
-  // Transform title from left (-250px -> 0px)
-  const textX = useTransform(scrollYProgress, [0.1, 0.45], ["-250px", "0px"])
-  
-  // Transform image frame from right (+250px -> 0px)
-  const imageX = useTransform(scrollYProgress, [0.1, 0.45], ["250px", "0px"])
+  // Transform title from left (-250px -> 0px -> 0px -> -250px)
+  const textX = useTransform(
+    scrollYProgress,
+    [0.0, 0.35, 0.80, 1.0],
+    ["-250px", "0px", "0px", "-250px"]
+  )
 
-  // Opacity fade-in as elements converge to center
-  const opacity = useTransform(scrollYProgress, [0.1, 0.35, 0.75, 0.9], [0, 1, 1, 0])
+  // Transform image frame from right (+250px -> 0px -> 0px -> 250px)
+  const imageX = useTransform(
+    scrollYProgress,
+    [0.0, 0.35, 0.80, 1.0],
+    ["250px", "0px", "0px", "250px"]
+  )
+
+  // Opacity fade-in as elements entrance, pin, and exit
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.0, 0.35, 0.80, 1.0],
+    [0, 1, 1, 0]
+  )
+
+  const motionTextStyle = isDesktop ? { x: textX, opacity } : {}
+  const motionImageStyle = isDesktop ? { x: imageX, opacity } : {}
 
   return (
-    <section ref={containerRef} className="relative h-[220vh] bg-[#f9f9f9] border-b border-[#e2e2e2]">
-      {/* Sticky Fullscreen Container */}
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-6 md:px-16">
+    <section
+      id="spotlight"
+      ref={containerRef}
+      className="relative h-auto md:h-[220vh] bg-[#f9f9f9] border-b border-[#e2e2e2]"
+    >
+      {/* Sticky Fullscreen Container on Desktop / Natural Flow Layout on Mobile */}
+      <div className="relative md:sticky top-0 h-auto md:h-screen w-full flex items-center justify-center overflow-visible md:overflow-hidden py-16 md:py-0 px-6 md:px-16">
         <div className="max-w-[1440px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Side: Title & Metadata Text (Flies in from Left) */}
           <motion.div
-            style={{ x: textX, opacity }}
+            style={motionTextStyle}
             className="lg:col-span-6 flex flex-col gap-6"
           >
             <div className="inline-flex items-center gap-2 text-[#707070] label-caps">
@@ -44,7 +74,7 @@ export function StickySpotlight() {
             </h2>
 
             <p className="body-lg text-[#707070] max-w-xl">
-              An intelligent E-Commerce ecosystem powered by Laravel 13, Livewire, and Google Gemini AI (RAG) for automated product recommendations and real-time Midtrans payment webhook parsing.
+              An intelligent E-Commerce craft store ecosystem powered by Laravel 13, Livewire, and Google Gemini AI (RAG) for automated product recommendations and real-time Midtrans payment webhook parsing.
             </p>
 
             <div className="flex flex-wrap gap-2 pt-2">
@@ -71,15 +101,21 @@ export function StickySpotlight() {
             </div>
           </motion.div>
 
-          {/* Right Side: Showcase Frame (Flies in from Right) */}
+          {/* Right Side: Showcase Frame with DefaCraftStore Logo (Flies in from Right) */}
           <motion.div
-            style={{ x: imageX, opacity }}
+            style={motionImageStyle}
             className="lg:col-span-6"
           >
-            <div className="ethereal-card p-6 md:p-8 border border-[#1a1c1c] bg-white shadow-2xl shadow-black/10">
-              <div className="relative h-72 sm:h-96 w-full bg-[#f3f3f3] border border-[#e2e2e2] flex flex-col items-center justify-center gap-4 overflow-hidden">
-                <div className="h-20 w-20 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] shadow-md">
-                  <FolderKanban className="h-10 w-10 text-[#a38a5e]" />
+            <div className="ethereal-card p-6 md:p-8 border border-[#1a1c1c] bg-white">
+              <div className="relative h-72 sm:h-96 w-full bg-[#f3f3f3] border border-[#e2e2e2] flex flex-col items-center justify-center gap-4 overflow-hidden group">
+                {/* DefaCraftStore Uploaded Logo */}
+                <div className="relative h-32 w-32 sm:h-44 sm:w-44 shadow-lg group-hover:scale-105 transition-transform duration-500">
+                  <Image
+                    src="/images/projects/defacraftstore.jpg"
+                    alt="DefaCraftStore Logo"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="text-center px-4">
                   <span className="label-caps text-xs text-[#1a1c1c] block mb-1">

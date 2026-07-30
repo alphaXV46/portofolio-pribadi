@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { motion, type Variants } from "motion/react"
-import { ArrowDownRight, Mail } from "lucide-react"
+import { ArrowDownRight, Mail, FileText } from "lucide-react"
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -26,7 +26,7 @@ const itemVariants: Variants = {
 
 export function Hero() {
   return (
-    <section className="relative pt-36 pb-24 md:pt-52 md:pb-40 overflow-hidden border-b border-[#e2e2e2]">
+    <section id="hero" className="relative pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden border-b border-[#e2e2e2]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-16 relative z-10">
         <motion.div
           variants={containerVariants}
@@ -77,6 +77,16 @@ export function Hero() {
             >
               <Mail className="h-4 w-4" />
               <span>INITIATE CONTACT</span>
+            </a>
+
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ethereal flex items-center justify-center gap-2"
+            >
+              <FileText className="h-4 w-4" />
+              <span>DOWNLOAD CV</span>
             </a>
           </motion.div>
 
