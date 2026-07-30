@@ -46,15 +46,21 @@ export function FeaturedProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="ethereal-card group flex flex-col justify-between p-6"
+              className="ethereal-card group flex flex-col justify-between p-6 transition-all duration-300 hover:border-[#1a1c1c]"
             >
-              {/* Thumbnail Header Frame */}
+              {/* Thumbnail Header Frame with Scroll Image Reveal */}
               <div>
-                <div className="relative h-56 w-full bg-[#f3f3f3] border border-[#e2e2e2] flex items-center justify-center mb-6 overflow-hidden">
-                  <div className="h-14 w-14 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white transition-colors duration-300">
+                <div className="relative h-56 w-full bg-[#f3f3f3] border border-[#e2e2e2] group-hover:border-[#1a1c1c] flex items-center justify-center mb-6 overflow-hidden transition-colors duration-300">
+                  <motion.div
+                    initial={{ scale: 1.08 }}
+                    whileInView={{ scale: 1.0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="h-14 w-14 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white transition-all duration-300"
+                  >
                     <FolderKanban className="h-6 w-6" />
-                  </div>
-                  <span className="absolute top-4 left-4 label-caps text-[10px] bg-white border border-[#e2e2e2] px-3 py-1 text-[#1a1c1c]">
+                  </motion.div>
+                  <span className="absolute top-4 left-4 label-caps text-[10px] bg-white border border-[#e2e2e2] group-hover:border-[#1a1c1c] px-3 py-1 text-[#1a1c1c] transition-colors">
                     {project.category}
                   </span>
                 </div>
@@ -90,10 +96,10 @@ export function FeaturedProjectsSection() {
                 <div className="flex items-center justify-between pt-4 border-t border-[#e2e2e2]">
                   <Link
                     href={project.permalink}
-                    className="label-caps text-xs text-[#1a1c1c] hover:text-[#a38a5e] transition-colors flex items-center gap-1"
+                    className="label-caps text-xs text-[#1a1c1c] group-hover:text-[#a38a5e] transition-colors flex items-center gap-1"
                   >
                     <span>READ CASE STUDY</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" />
+                    <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </Link>
 
                   <div className="flex items-center gap-3">

@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { Marquee } from "@/components/marquee"
 import { AboutSection } from "@/components/sections/about"
 import { FeaturedProjectsSection } from "@/components/sections/featured-projects"
 import { SkillsMatrixSection } from "@/components/sections/skills-matrix"
@@ -10,6 +11,7 @@ export default function Home() {
     <main className="flex-1 flex flex-col min-h-screen bg-[#f9f9f9] text-[#1a1c1c] selection:bg-[#1a1c1c] selection:text-[#ffffff]">
       <Navbar />
       <Hero />
+      <Marquee />
       <AboutSection />
       <FeaturedProjectsSection />
       <SkillsMatrixSection />
