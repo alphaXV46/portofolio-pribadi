@@ -55,7 +55,7 @@ export default function ProjectsPage() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-5 py-2.5 label-caps text-xs transition-all duration-300 ${
                     isActive
-                      ? "bg-[#1a1c1c] text-white border border-[#1a1c1c]"
+                      ? "bg-[#1a1c1c] text-white border border-[#1a1c1c] shadow-sm scale-105"
                       : "bg-white text-[#707070] border border-[#e2e2e2] hover:text-[#1a1c1c] hover:border-[#1a1c1c]"
                   }`}
                 >
@@ -75,28 +75,29 @@ export default function ProjectsPage() {
               {filteredProjects.map((project, idx) => (
                 <motion.div
                   key={project.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  className="ethereal-card group flex flex-col justify-between p-6 transition-all duration-300 hover:border-[#1a1c1c]"
+                  initial={{ opacity: 0, y: 50, scale: 0.96 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.215, 0.61, 0.355, 1.0] }}
+                  className="ethereal-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-2 hover:border-[#1a1c1c] hover:shadow-2xl hover:shadow-black/10 bg-white"
                 >
                   <div>
-                    <div className="relative h-56 w-full bg-[#f3f3f3] border border-[#e2e2e2] group-hover:border-[#1a1c1c] flex items-center justify-center mb-6 overflow-hidden transition-colors duration-300">
+                    <div className="relative h-60 w-full bg-[#f3f3f3] border border-[#e2e2e2] group-hover:border-[#1a1c1c] flex items-center justify-center mb-6 overflow-hidden transition-colors duration-300">
                       <motion.div
-                        initial={{ scale: 1.08 }}
+                        initial={{ scale: 1.15 }}
                         whileInView={{ scale: 1.0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="h-14 w-14 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white transition-all duration-300"
+                        className="h-16 w-16 border border-[#1a1c1c] bg-white flex items-center justify-center text-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm"
                       >
-                        <FolderKanban className="h-6 w-6" />
+                        <FolderKanban className="h-7 w-7" />
                       </motion.div>
-                      <span className="absolute top-4 left-4 label-caps text-[10px] bg-white border border-[#e2e2e2] group-hover:border-[#1a1c1c] px-3 py-1 text-[#1a1c1c] transition-colors">
+                      <span className="absolute top-4 left-4 label-caps text-[10px] bg-white border border-[#e2e2e2] group-hover:border-[#1a1c1c] group-hover:bg-[#1a1c1c] group-hover:text-white px-3.5 py-1 text-[#1a1c1c] transition-all duration-300">
                         {project.category}
                       </span>
                     </div>
 
-                    <h2 className="font-serif text-2xl text-[#1a1c1c] group-hover:text-[#a38a5e] transition-colors mb-3 leading-snug">
+                    <h2 className="font-serif text-2xl text-[#1a1c1c] group-hover:text-[#a38a5e] transition-colors duration-300 mb-3 leading-snug">
                       <Link href={project.permalink}>{project.title}</Link>
                     </h2>
                     
@@ -110,20 +111,20 @@ export default function ProjectsPage() {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="label-caps text-[10px] px-2.5 py-1 bg-[#f9f9f9] border border-[#e2e2e2] text-[#1a1c1c]"
+                          className="label-caps text-[10px] px-2.5 py-1 bg-[#f9f9f9] border border-[#e2e2e2] group-hover:border-[#c4c7c7] text-[#1a1c1c] transition-colors"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-[#e2e2e2]">
+                    <div className="flex items-center justify-between pt-4 border-t border-[#e2e2e2] group-hover:border-[#1a1c1c] transition-colors duration-300">
                       <Link
                         href={project.permalink}
-                        className="label-caps text-xs text-[#1a1c1c] group-hover:text-[#a38a5e] transition-colors flex items-center gap-1"
+                        className="label-caps text-xs text-[#1a1c1c] group-hover:text-[#a38a5e] transition-colors flex items-center gap-1.5 font-bold"
                       >
                         <span>READ CASE STUDY</span>
-                        <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        <ArrowUpRight className="h-4 w-4 group-hover:translate-x-1.5 group-hover:-translate-y-1.5 transition-transform duration-300" />
                       </Link>
 
                       <div className="flex items-center gap-3">
@@ -132,7 +133,7 @@ export default function ProjectsPage() {
                             href={project.github_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#707070] hover:text-[#1a1c1c] transition-colors"
+                            className="text-[#707070] hover:text-[#1a1c1c] hover:scale-110 transition-all"
                             aria-label="GitHub Repository"
                           >
                             <GithubIcon className="h-4 w-4" />
@@ -143,7 +144,7 @@ export default function ProjectsPage() {
                             href={project.demo_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#707070] hover:text-[#a38a5e] transition-colors"
+                            className="text-[#707070] hover:text-[#a38a5e] hover:scale-110 transition-all"
                             aria-label="Live Demo"
                           >
                             <ExternalLink className="h-4 w-4" />
