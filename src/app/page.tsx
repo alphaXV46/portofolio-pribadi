@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { Marquee } from "@/components/marquee"
+import { StickySpotlight } from "@/components/sticky-spotlight"
 import { AboutSection } from "@/components/sections/about"
 import { FeaturedProjectsSection } from "@/components/sections/featured-projects"
 import { SkillsMatrixSection } from "@/components/sections/skills-matrix"
@@ -12,6 +13,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Marquee />
+      <StickySpotlight />
       <AboutSection />
       <FeaturedProjectsSection />
       <SkillsMatrixSection />
